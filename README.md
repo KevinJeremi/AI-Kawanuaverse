@@ -352,7 +352,7 @@ This project is licensed under the MIT License.
 
 ## 👥 Team & Contact
 
-**ResearchMate** - AI-powered academic research analysis tool
+**AI Kawanuaverse** - AI-powered academic research analysis tool
 
 - **Frontend**: Next.js 15 + TypeScript + Tailwind CSS
 - **Backend**: Python FastAPI + Groq API + NLP
