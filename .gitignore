@@ -1,0 +1,123 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# ========================================
+# SENSITIVE FILES - JANGAN PUSH KE GITHUB!
+# ========================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+backend/.env
+backend/.env.local
+
+# API Keys dan Secret Files
+**/config/secrets.json
+**/secrets/
+**/*secret*
+**/*key*
+**/api-keys/
+groq_api_key.txt
+
+# GitHub Workflows dan Configurations - JANGAN PUSH!
+.github/
+.github/**
+*.yml
+*.yaml
+
+# ========================================
+# DEPENDENCIES
+# ========================================
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Python Dependencies
+backend/venv/
+backend/env/
+backend/__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ========================================
+# BUILD OUTPUTS
+# ========================================
+# next.js
+/.next/
+/out/
+
+# production
+/build
+/dist
+
+# ========================================
+# DEVELOPMENT FILES
+# ========================================
+# testing
+/coverage
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# vercel
+.vercel
+
+# ========================================
+# BACKEND SPECIFIC
+# ========================================
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+backend/researchmate.db
+
+# Upload directories (berisi file PDF user)
+backend/uploads/
+uploads/
+**/uploads/**
+
+# Model cache directories
+backend/model_cache/
+model_cache/
+**/model_cache/**
+
+# Python logs
+*.log
+
+# ========================================
+# IDE & EDITOR FILES
+# ========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ========================================
+# OS GENERATED FILES
+# ========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
