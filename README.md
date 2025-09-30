@@ -331,18 +331,6 @@ python test_groq_integration.py # Test Groq API
 - [x] Responsive UI dengan dark theme
 - [x] Error handling dan fallback systems
 
-### 🚧 **In Progress**
-- [ ] Performance optimization
-- [ ] Advanced error logging
-- [ ] File format validation enhancement
-
-### 📋 **Future Roadmap**
-- [ ] Document history & management
-- [ ] Export results (PDF, JSON, CSV)
-- [ ] Batch processing multiple files
-- [ ] Advanced analytics dashboard
-- [ ] Cloud deployment (AWS/Azure)
-- [ ] Mobile app version
 
 ---
 
@@ -364,7 +352,7 @@ This project is licensed under the MIT License.
 
 ## 👥 Team & Contact
 
-**ResearchMate** - AI-powered academic research analysis tool
+**AI Kawanuaverse** - AI-powered academic research analysis tool
 
 - **Frontend**: Next.js 15 + TypeScript + Tailwind CSS
 - **Backend**: Python FastAPI + Groq API + NLP
