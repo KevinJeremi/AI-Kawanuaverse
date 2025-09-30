@@ -21,6 +21,7 @@
 ## 📋 Table of Contents
 
 - [Deskripsi Project](#-deskripsi-project)
+- [Screenshots](#-screenshots)
 - [Fitur Utama](#-fitur-utama)
 - [Teknologi AI & NLP](#-teknologi-ai--nlp)
 - [Arsitektur Sistem](#-arsitektur-sistem)
@@ -51,6 +52,40 @@
 ![Lines of Code](https://img.shields.io/badge/Lines%20of%20Code-12K+-blue?style=flat-square)
 ![Files](https://img.shields.io/badge/Files-65+-green?style=flat-square)
 ![Languages](https://img.shields.io/badge/Languages-4-orange?style=flat-square)
+
+---
+
+## 📸 Screenshots
+
+<div align="center">
+
+### 🔐 Authentication System
+<img src="assets/screenshots/auth-login-page.png" alt="Login Page" width="800" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin: 10px;">
+
+*Halaman login dengan UI modern dan secure authentication menggunakan JWT tokens*
+
+---
+
+### 🏠 Dashboard Overview
+<img src="assets/screenshots/dashboard-main-overview.png" alt="Dashboard Main" width="800" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin: 10px;">
+
+*Dashboard utama dengan interface yang clean dan user-friendly untuk upload dan manage dokumen*
+
+---
+
+### 📄 Document Analysis Interface
+<img src="assets/screenshots/document-analysis-view.png" alt="Document Analysis" width="800" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin: 10px;">
+
+*Interface analisis dokumen dengan real-time processing dan progress tracking*
+
+---
+
+### 🤖 AI Analysis Results
+<img src="assets/screenshots/ai-analysis-results.png" alt="AI Results" width="800" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin: 10px;">
+
+*Hasil analisis AI menampilkan ringkasan, kata kunci, dan Q&A system yang interaktif*
+
+</div>
 
 ---
 
