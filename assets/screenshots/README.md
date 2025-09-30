@@ -1,22 +1,43 @@
-# Screenshots Placeholder
+# Screenshots - AI Kawanuaverse
 
-Untuk menambahkan screenshots aplikasi, simpan file gambar dengan nama:
+Koleksi screenshot dari aplikasi **AI Kawanuaverse** yang menampilkan fitur-fitur utama dan antarmuka pengguna.
 
-- `dashboard.png` - Screenshot halaman dashboard
-- `upload.png` - Screenshot fitur upload PDF
-- `analysis.png` - Screenshot hasil analisis AI
-- `chat.png` - Screenshot interface Q&A
+## 📁 File Screenshots
 
-## Cara Menambahkan Screenshots:
+### 1. `auth-login-page.png`
+- **Deskripsi**: Halaman authentication/login system
+- **Fitur**: JWT-based secure login, modern UI design
+- **Resolusi**: Optimal untuk dokumentasi
 
-1. Ambil screenshot dari aplikasi yang sedang berjalan
-2. Resize gambar ke ukuran 600x400 pixels (optional)
-3. Simpan di folder `assets/screenshots/` dengan nama yang sesuai
-4. Screenshots akan otomatis muncul di README
+### 2. `dashboard-main-overview.png`
+- **Deskripsi**: Dashboard utama aplikasi
+- **Fitur**: Upload interface, navigation menu, user-friendly design
+- **Resolusi**: Desktop view dengan full features
 
-## Tips Screenshot yang Baik:
+### 3. `document-analysis-view.png`
+- **Deskripsi**: Interface untuk analisis dokumen
+- **Fitur**: Real-time processing, progress tracking, file management
+- **Resolusi**: Analysis workflow screenshot
 
-- Gunakan resolusi tinggi (minimal 1080p)
-- Tampilkan fitur utama aplikasi
-- Pastikan UI terlihat jelas dan menarik
-- Gunakan data dummy yang representatif
+### 4. `ai-analysis-results.png`
+- **Deskripsi**: Hasil analisis AI dari dokumen yang diupload
+- **Fitur**: Summarization results, keyword extraction, Q&A interface
+- **Resolusi**: Complete results view
+
+## 🎨 Style Guidelines
+
+- **Format**: PNG dengan transparansi support
+- **Naming**: Descriptive kebab-case naming convention
+- **Quality**: High resolution untuk dokumentasi yang clear
+- **Content**: Menampilkan core features dan user experience
+
+## 📖 Usage
+
+Screenshot ini digunakan dalam:
+- README.md utama project
+- Dokumentasi pengembangan
+- Presentasi dan demo aplikasi
+
+---
+
+*Last updated: September 30, 2025*
