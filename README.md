@@ -1,4 +1,66 @@
-# AI Kawanuaverse - AI-Powered Academic Research Analysis
+<div align="center">
+  <img src="public/logo.png" alt="ResearchMate Logo" width="120" height="120">
+  
+  # AI Kawanuaverse
+  ## 🔬 AI-Powered Academic Research Analysis
+  
+  [![Next.js](https://img.shields.io/badge/Next.js-15.5.4-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
+  [![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi---
+
+<div align="center">
+
+## 🌟 Show Your Support
+
+If this project helped you, please consider giving it a ⭐️!
+
+[![GitHub stars](https://img.shields.io/github/stars/KevinJeremi/AI-Kawanuaverse?style=social)](https://github.com/KevinJeremi/AI-Kawanuaverse/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/KevinJeremi/AI-Kawanuaverse?style=social)](https://github.com/KevinJeremi/AI-Kawanuaverse/network/members)
+[![GitHub watchers](https://img.shields.io/github/watchers/KevinJeremi/AI-Kawanuaverse?style=social)](https://github.com/KevinJeremi/AI-Kawanuaverse/watchers)
+
+## 👥 Connect With Us
+
+[![GitHub](https://img.shields.io/badge/GitHub-KevinJeremi-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KevinJeremi)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/kevinjeremi)
+[![Email](https://img.shields.io/badge/Email-Contact-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:kevin@example.com)
+
+## 🚀 Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/KevinJeremi/AI-Kawanuaverse.git
+
+# Install and run
+cd AI-Kawanuaverse
+npm install && npm run dev
+
+# Backend setup  
+cd backend && ./start.sh
+```
+
+**ResearchMate** - AI-powered academic research analysis tool
+
+**Tech Stack:** Next.js 15 • FastAPI • Groq API • Llama-3.1-8B • YAKE • NLTK
+
+---
+
+<sub>🎓 *Built with ❤️ for the academic research community*</sub>
+
+**[⬆ Back to Top](#ai-kawanuaverse)**
+
+</div>.com)
+  [![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org)
+  [![Groq](https://img.shields.io/badge/Groq-API-FF6B35?style=for-the-badge&logo=groq&logoColor=white)](https://groq.com)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+  [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+
+  **Aplikasi AI-powered untuk menganalisis jurnal dan paper akademik secara otomatis dengan teknologi Groq Llama dan NLP**
+  
+  [🚀 Features](#-fitur-utama) • [🧠 AI Technology](#-teknologi-ai--nlp-yang-digunakan) • [📋 Workflow](#-alur-kerja-end-to-end-flow) • [🛠️ Installation](#-cara-menjalankan-project) • [📊 Performance](#-performance--specifications) • [📁 Structure](#-struktur-project)
+
+</div>
+
+---
 
 ## 🎯 Deskripsi Project
 
@@ -42,6 +104,50 @@ ResearchMate adalah aplikasi full-stack yang membantu peneliti, mahasiswa, dan d
 - **🌏 Multi-language**: Support bahasa Indonesia dan English
 - **📱 Responsive UI**: Interface modern dengan dark theme
 - **⚡ Real-time Processing**: Upload dan analisis dengan progress tracking
+
+---
+
+## 📊 Project Statistics
+
+<div align="center">
+
+![Lines of Code](https://img.shields.io/badge/Lines%20of%20Code-12K+-blue?style=flat-square)
+![Files](https://img.shields.io/badge/Files-65+-green?style=flat-square)
+![Languages](https://img.shields.io/badge/Languages-4-orange?style=flat-square)
+![Contributors](https://img.shields.io/badge/Contributors-1-red?style=flat-square)
+
+</div>
+
+## 📱 Screenshots
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <h3>🏠 Dashboard</h3>
+        <img src="assets/screenshots/dashboard.png" alt="Dashboard" width="300"/>
+        <p><em>Modern dark theme interface</em></p>
+      </td>
+      <td align="center">
+        <h3>📄 PDF Upload</h3>
+        <img src="assets/screenshots/upload.png" alt="Upload" width="300"/>
+        <p><em>Drag & drop PDF upload</em></p>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <h3>🤖 AI Analysis</h3>
+        <img src="assets/screenshots/analysis.png" alt="Analysis" width="300"/>
+        <p><em>Real-time AI processing</em></p>
+      </td>
+      <td align="center">
+        <h3>❓ Q&A Chat</h3>
+        <img src="assets/screenshots/chat.png" alt="Chat" width="300"/>
+        <p><em>Interactive Q&A system</em></p>
+      </td>
+    </tr>
+  </table>
+</div>
 
 ---
 
@@ -194,7 +300,36 @@ DATABASE_URL=sqlite:///./researchmate.db
 
 ## 🛠️ Tech Stack Detail
 
-### **Frontend Dependencies**
+<div align="center">
+
+### Frontend Technologies
+![Next.js](https://img.shields.io/badge/Next.js-15.5.4-black?style=for-the-badge&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0+-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.23.22-0055FF?style=for-the-badge&logo=framer&logoColor=white)
+
+### Backend Technologies  
+![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-1.4.53-D71F00?style=for-the-badge&logo=sqlalchemy&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+
+### AI & ML Technologies
+![Groq](https://img.shields.io/badge/Groq_API-0.4.1-FF6B35?style=for-the-badge&logo=groq&logoColor=white)
+![Llama](https://img.shields.io/badge/Llama_3.1_8B-Meta-0066CC?style=for-the-badge&logo=meta&logoColor=white)
+![YAKE](https://img.shields.io/badge/YAKE-0.4.8-FF9500?style=for-the-badge)
+![NLTK](https://img.shields.io/badge/NLTK-3.8.1-154F3C?style=for-the-badge)
+
+### DevOps & Tools
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white)
+
+</div>
+
+### **📦 Frontend Dependencies**
 ```json
 {
   "next": "15.5.4",

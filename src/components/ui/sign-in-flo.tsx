@@ -68,8 +68,8 @@ const AnimatedFormField: React.FC<FormFieldProps> = ({
         />
 
         <label className={`absolute left-10 transition-all duration-300 ease-in-out pointer-events-none ${isFocused || value
-            ? 'top-2 text-xs text-primary font-medium transform scale-90 origin-left'
-            : 'top-1/2 -translate-y-1/2 text-sm text-muted-foreground'
+          ? 'top-2 text-xs text-primary font-medium transform scale-90 origin-left'
+          : 'top-1/2 -translate-y-1/2 text-sm text-muted-foreground'
           }`}>
           {placeholder}
         </label>
@@ -347,8 +347,8 @@ export const Component: React.FC = () => {
             {/* Login Message */}
             {loginMessage && (
               <div className={`p-3 rounded-lg text-sm font-medium text-center transition-all duration-300 ${loginSuccess
-                  ? 'bg-green-100 text-green-800 border border-green-200'
-                  : 'bg-red-100 text-red-800 border border-red-200'
+                ? 'bg-green-100 text-green-800 border border-green-200'
+                : 'bg-red-100 text-red-800 border border-red-200'
                 }`}>
                 {loginMessage}
               </div>
@@ -395,11 +395,7 @@ export const Component: React.FC = () => {
           </form>
 
           {/* API Info */}
-          <div className="mt-6 p-3 bg-muted/30 rounded-lg border border-border">
-            <p className="text-xs text-muted-foreground text-center">
-              {isSignUp ? 'Buat akun baru untuk mengakses ResearchMate' : 'Masuk ke akun ResearchMate Anda'}
-            </p>
-          </div>
+          {/* Helper text removed as requested */}
           {/* Toggle Mode */}
           <div className="mt-6 text-center">
             <p className="text-sm text-muted-foreground">
