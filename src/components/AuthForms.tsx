@@ -1,15 +1,12 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Component } from '@/components/ui/sign-in-flo'
-import { useAuth } from '@/contexts/AuthContext'
 
 interface AnimatedAuthFormsProps {
     onToggleMode?: () => void
 }
 
-export function AnimatedAuthForms({ onToggleMode }: AnimatedAuthFormsProps) {
+export function AnimatedAuthForms({ }: AnimatedAuthFormsProps) {
     return <Component />
 }
 

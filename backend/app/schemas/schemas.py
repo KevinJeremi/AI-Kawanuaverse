@@ -103,9 +103,15 @@ class Keyword(KeywordBase):
         from_attributes = True
 
 # QA Schemas
+class ChatMessage(BaseModel):
+    role: str  # 'user' or 'assistant'
+    content: str
+    timestamp: Optional[datetime] = None
+
 class QARequest(BaseModel):
     question: str
     document_id: int
+    conversation_history: Optional[List[ChatMessage]] = []
 
 class QAResponse(BaseModel):
     question: str

@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Eye, EyeOff, Github, Twitter, Linkedin, Mail, Lock, User } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
+import { LoadingScreen } from "@/components/ui/loading-screen";
+import { useLoginLoading } from "@/hooks/useLoading";
 
 interface FormFieldProps {
   type: string;
@@ -97,24 +99,6 @@ const AnimatedFormField: React.FC<FormFieldProps> = ({
   );
 };
 
-const SocialButton: React.FC<{ icon: React.ReactNode; name: string }> = ({ icon, name }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <button
-      className="relative group p-3 rounded-lg border border-border bg-background hover:bg-accent transition-all duration-300 ease-in-out overflow-hidden"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className={`absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 transition-transform duration-500 ${isHovered ? 'translate-x-0' : '-translate-x-full'
-        }`} />
-      <div className="relative text-foreground group-hover:text-primary transition-colors">
-        {icon}
-      </div>
-    </button>
-  );
-};
-
 const FloatingParticles: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -204,8 +188,9 @@ const FloatingParticles: React.FC = () => {
 };
 
 export const Component: React.FC = () => {
-  const { login, register, isLoading: authLoading } = useAuth();
+  const { login, register } = useAuth();
   const router = useRouter();
+  const { isLoading: loginLoading, startLoading } = useLoginLoading();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -222,6 +207,9 @@ export const Component: React.FC = () => {
     setIsSubmitting(true);
     setLoginMessage("");
     setLoginSuccess(null);
+
+    // Start loading animation (3 seconds)
+    startLoading();
 
     try {
       // Validation
@@ -251,14 +239,14 @@ export const Component: React.FC = () => {
         setLoginSuccess(true);
       }
 
-      // Redirect to dashboard after successful login/register
+      // Redirect to dashboard after successful login/register and loading animation completes
       setTimeout(() => {
         router.push('/');
-      }, 1500);
+      }, 3500); // 3 seconds loading + 0.5 seconds buffer
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Authentication error:', error);
-      const errorMessage = error.message || 'Terjadi kesalahan. Silakan coba lagi.';
+      const errorMessage = (error as Error).message || 'Terjadi kesalahan. Silakan coba lagi.';
 
       if (errorMessage.includes('401') || errorMessage.includes('Invalid credentials')) {
         setLoginMessage("Email atau password salah. Silakan coba lagi.");
@@ -285,132 +273,140 @@ export const Component: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
-      <FloatingParticles />
+    <>
+      {/* Loading Screen for Login/Register */}
+      <LoadingScreen
+        isVisible={loginLoading}
+        message={isSignUp ? "Creating your account..." : "Signing you in..."}
+      />
 
-      <div className="relative z-10 w-full max-w-md">
-        <div className="bg-card/80 backdrop-blur-xl border border-border rounded-2xl p-8 shadow-2xl">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-6">
-              <User className="w-8 h-8 text-primary" />
+      <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
+        <FloatingParticles />
+
+        <div className="relative z-10 w-full max-w-md">
+          <div className="bg-card/80 backdrop-blur-xl border border-border rounded-2xl p-8 shadow-2xl">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-6">
+                <User className="w-8 h-8 text-primary" />
+              </div>
+              <h1 className="text-3xl font-bold text-foreground mb-2">
+                {isSignUp ? 'Create Account' : 'Welcome Back'}
+              </h1>
+              <p className="text-muted-foreground">
+                {isSignUp ? 'Sign up to get started' : 'Sign in to continue'}
+              </p>
             </div>
-            <h1 className="text-3xl font-bold text-foreground mb-2">
-              {isSignUp ? 'Create Account' : 'Welcome Back'}
-            </h1>
-            <p className="text-muted-foreground">
-              {isSignUp ? 'Sign up to get started' : 'Sign in to continue'}
-            </p>
-          </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {isSignUp && (
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {isSignUp && (
+                <AnimatedFormField
+                  type="text"
+                  placeholder="Full Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  icon={<User size={18} />}
+                />
+              )}
+
               <AnimatedFormField
                 type="text"
-                placeholder="Full Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                icon={<User size={18} />}
+                placeholder="Email Address"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (loginMessage) {
+                    setLoginMessage("");
+                    setLoginSuccess(null);
+                  }
+                }}
+                icon={<Mail size={18} />}
               />
-            )}
 
-            <AnimatedFormField
-              type="text"
-              placeholder="Email Address"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                if (loginMessage) {
-                  setLoginMessage("");
-                  setLoginSuccess(null);
-                }
-              }}
-              icon={<Mail size={18} />}
-            />
+              <AnimatedFormField
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (loginMessage) {
+                    setLoginMessage("");
+                    setLoginSuccess(null);
+                  }
+                }}
+                icon={<Lock size={18} />}
+                showToggle
+                onToggle={() => setShowPassword(!showPassword)}
+                showPassword={showPassword}
+              />
 
-            <AnimatedFormField
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                if (loginMessage) {
-                  setLoginMessage("");
-                  setLoginSuccess(null);
-                }
-              }}
-              icon={<Lock size={18} />}
-              showToggle
-              onToggle={() => setShowPassword(!showPassword)}
-              showPassword={showPassword}
-            />
-
-            {/* Login Message */}
-            {loginMessage && (
-              <div className={`p-3 rounded-lg text-sm font-medium text-center transition-all duration-300 ${loginSuccess
-                ? 'bg-green-100 text-green-800 border border-green-200'
-                : 'bg-red-100 text-red-800 border border-red-200'
-                }`}>
-                {loginMessage}
-              </div>
-            )}
-
-            <div className="flex items-center justify-between">
-              <label className="flex items-center space-x-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-4 h-4 text-primary bg-background border-border rounded focus:ring-primary focus:ring-2"
-                />
-                <span className="text-sm text-muted-foreground">Remember me</span>
-              </label>
-
-              {!isSignUp && (
-                <button
-                  type="button"
-                  className="text-sm text-primary hover:underline"
-                >
-                  Forgot password?
-                </button>
-              )}
-            </div>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full relative group bg-primary text-primary-foreground py-3 px-4 rounded-lg font-medium transition-all duration-300 ease-in-out hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
-            >
-              <span className={`transition-opacity duration-200 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                {isSignUp ? 'Create Account' : 'Sign In'}
-              </span>
-
-              {isSubmitting && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+              {/* Login Message */}
+              {loginMessage && (
+                <div className={`p-3 rounded-lg text-sm font-medium text-center transition-all duration-300 ${loginSuccess
+                  ? 'bg-green-100 text-green-800 border border-green-200'
+                  : 'bg-red-100 text-red-800 border border-red-200'
+                  }`}>
+                  {loginMessage}
                 </div>
               )}
 
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
-            </button>
-          </form>
+              <div className="flex items-center justify-between">
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    className="w-4 h-4 text-primary bg-background border-border rounded focus:ring-primary focus:ring-2"
+                  />
+                  <span className="text-sm text-muted-foreground">Remember me</span>
+                </label>
 
-          {/* API Info */}
-          {/* Helper text removed as requested */}
-          {/* Toggle Mode */}
-          <div className="mt-6 text-center">
-            <p className="text-sm text-muted-foreground">
-              {isSignUp ? 'Sudah punya akun?' : 'Belum punya akun?'}{' '}
+                {!isSignUp && (
+                  <button
+                    type="button"
+                    className="text-sm text-primary hover:underline"
+                  >
+                    Forgot password?
+                  </button>
+                )}
+              </div>
+
               <button
-                type="button"
-                onClick={toggleMode}
-                className="text-primary hover:underline font-medium transition-colors"
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full relative group bg-primary text-primary-foreground py-3 px-4 rounded-lg font-medium transition-all duration-300 ease-in-out hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
               >
-                {isSignUp ? 'Masuk di sini' : 'Daftar di sini'}
+                <span className={`transition-opacity duration-200 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
+                  {isSignUp ? 'Create Account' : 'Sign In'}
+                </span>
+
+                {isSubmitting && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                  </div>
+                )}
+
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
               </button>
-            </p>
+            </form>
+
+            {/* API Info */}
+            {/* Helper text removed as requested */}
+            {/* Toggle Mode */}
+            <div className="mt-6 text-center">
+              <p className="text-sm text-muted-foreground">
+                {isSignUp ? 'Sudah punya akun?' : 'Belum punya akun?'}{' '}
+                <button
+                  type="button"
+                  onClick={toggleMode}
+                  className="text-primary hover:underline font-medium transition-colors"
+                >
+                  {isSignUp ? 'Masuk di sini' : 'Daftar di sini'}
+                </button>
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

@@ -84,9 +84,16 @@ export interface FileUpload {
     document_id?: number
 }
 
+export interface ChatMessage {
+    role: 'user' | 'assistant'
+    content: string
+    timestamp?: string
+}
+
 export interface QARequest {
     question: string
     document_id: number
+    conversation_history?: ChatMessage[]
 }
 
 export interface QAResponse {

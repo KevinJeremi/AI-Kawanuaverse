@@ -13,10 +13,10 @@ import { LoadingSpinner } from "@/components/ui/loading"
 import { Component as AnimatedBackground } from "@/components/ui/raycast-animated-background"
 import { useAuth } from "@/contexts/AuthContext"
 import { apiService } from "@/lib/api"
-import { DocumentAnalysis, AnalysisResult, QAResponse } from "@/lib/types"
+import { AnalysisResult, QAResponse, ChatMessage } from "@/lib/types"
 
 export default function HomePage() {
-  const { isAuthenticated, isLoading, user } = useAuth()
+  const { isAuthenticated, isLoading } = useAuth()
   const router = useRouter()
   const [uploadProgress, setUploadProgress] = useState(0)
   const [isUploading, setIsUploading] = useState(false)
@@ -113,13 +113,13 @@ export default function HomePage() {
     }
   }
 
-  const handleAskQuestion = async (question: string): Promise<QAResponse> => {
+  const handleAskQuestion = async (question: string, conversationHistory?: ChatMessage[]): Promise<QAResponse> => {
     if (!documentId) {
       throw new Error("No document selected")
     }
 
     try {
-      const response = await apiService.askQuestion(question, documentId)
+      const response = await apiService.askQuestion(question, documentId, conversationHistory)
       return response
     } catch (error) {
       console.error("QA error:", error)

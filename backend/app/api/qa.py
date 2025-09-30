@@ -44,10 +44,21 @@ async def ask_question(
                 detail="No text content available for question answering"
             )
         
+        # Convert conversation history to dict format
+        history_list = []
+        if qa_request.conversation_history:
+            for msg in qa_request.conversation_history:
+                history_list.append({
+                    "role": msg.role,
+                    "content": msg.content,
+                    "timestamp": msg.timestamp
+                })
+
         # Generate answer
         qa_result = await nlp_service.answer_question(
             question=qa_request.question,
-            context=document.extracted_text
+            context=document.extracted_text,
+            conversation_history=history_list
         )
         
         if not qa_result.get('answer'):

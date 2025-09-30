@@ -1,4 +1,4 @@
-import { AnalysisResult, QAResponse, UploadResponse, LoginResponse, User, Document, QASession } from "@/lib/types"
+import { AnalysisResult, QAResponse, UploadResponse, LoginResponse, User, Document, QASession, ChatMessage } from "@/lib/types"
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1"
 
@@ -157,12 +157,13 @@ class ApiService {
     }
 
     // Q&A methods
-    async askQuestion(question: string, documentId: number): Promise<QAResponse> {
+    async askQuestion(question: string, documentId: number, conversationHistory?: ChatMessage[]): Promise<QAResponse> {
         return this.makeRequest<QAResponse>("/qa/", {
             method: "POST",
             body: JSON.stringify({
                 question,
                 document_id: documentId,
+                conversation_history: conversationHistory || [],
             }),
         })
     }

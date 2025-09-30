@@ -1,6 +1,6 @@
 "use client"
 
-import { Brain, Github, HelpCircle, LogOut, User } from "lucide-react"
+import { Github, HelpCircle, LogOut, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { useAuth } from "@/contexts/AuthContext"
@@ -43,12 +43,16 @@ export function Header() {
                     </motion.div>
 
                     <div className="flex items-center space-x-3">
-                        <Button variant="ghost" size="icon">
-                            <Github className="w-5 h-5" />
-                        </Button>
-                        <Button variant="ghost" size="icon">
-                            <HelpCircle className="w-5 h-5" />
-                        </Button>
+                        <a href="https://github.com/KevinJeremi/AI-Kawanuaverse" target="_blank" rel="noopener noreferrer">
+                            <Button variant="ghost" size="icon" title="Source Code">
+                                <Github className="w-5 h-5" />
+                            </Button>
+                        </a>
+                        <a href="http://localhost:8000/docs" target="_blank" rel="noopener noreferrer">
+                            <Button variant="ghost" size="icon" title="API Documentation">
+                                <HelpCircle className="w-5 h-5" />
+                            </Button>
+                        </a>
 
                         {isAuthenticated && user ? (
                             <div className="flex items-center space-x-3">

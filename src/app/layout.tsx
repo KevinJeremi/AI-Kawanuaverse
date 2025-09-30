@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter, Crimson_Text } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ClientLoadingWrapper } from "@/components/ClientLoadingWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,7 +42,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${crimsonText.variable} antialiased bg-gray-950 text-white min-h-screen`}
       >
         <AuthProvider>
-          {children}
+          <ClientLoadingWrapper>
+            {children}
+          </ClientLoadingWrapper>
         </AuthProvider>
       </body>
     </html>

@@ -233,12 +233,12 @@ class NLPService:
                 logger.error(f"Fallback keyword extraction failed: {fallback_error}")
                 return []
 
-    async def answer_question(self, question: str, context: str) -> Dict[str, Any]:
-        """Answer question based on context using LLM API"""
+    async def answer_question(self, question: str, context: str, conversation_history: List = None) -> Dict[str, Any]:
+        """Answer question based on context using LLM API with conversation history"""
         try:
             # Use Groq (Llama model) if available
             if self.groq_client:
-                return await self._qa_with_groq(question, context)
+                return await self._qa_with_groq(question, context, conversation_history or [])
             else:
                 # Simple fallback if no Groq API key
                 logger.info("No Groq client available, using simple Q&A")
@@ -248,27 +248,64 @@ class NLPService:
             logger.error(f"QA error: {e}")
             return await self._simple_qa(question, context)
 
-    async def _qa_with_groq(self, question: str, context: str) -> Dict[str, Any]:
-        """Answer question using Groq Llama API"""
-        prompt = f"""
-        Berdasarkan konteks berikut, jawab pertanyaan dalam bahasa Indonesia.
-        Jika jawaban tidak dapat ditemukan dalam konteks, katakan "Saya tidak dapat menemukan informasi ini dalam teks yang diberikan."
+    async def _qa_with_groq(self, question: str, context: str, conversation_history: List = None) -> Dict[str, Any]:
+        """Answer question using Groq Llama API with conversation history"""
+        # Build conversation history for context
+        history_context = ""
+        if conversation_history:
+            history_context = "\n\nPercakapan sebelumnya:\n"
+            for msg in conversation_history[-6:]:  # Only use last 6 messages to avoid token limit
+                role = "Anda" if msg.get("role") == "assistant" else "Pengguna"
+                history_context += f"{role}: {msg.get('content', '')}\n"
 
-        Konteks: {context[:6000]}
+        # Build messages array with history
+        messages = [
+            {
+                "role": "system", 
+                "content": """Anda adalah ResearchMate AI, asisten penelitian yang ramah.
 
-        Pertanyaan: {question}
+ATURAN PENTING:
+- Jawab dengan RINGKAS dan LANGSUNG ke intinya
+- Maksimal 2-3 kalimat untuk sapaan/pertanyaan simple
+- Hindari pengulangan informasi yang sama
+- Jangan sebutkan judul dokumen berulang-ulang
+- Gunakan bahasa Indonesia yang natural tapi efisien
 
-        Berikan jawaban yang jelas dan ringkas dalam bahasa Indonesia.
-        """
+PRIORITAS JAWABAN:
+1. Jawab pertanyaan langsung dari dokumen
+2. Jika tidak ada di dokumen, jawab berdasarkan pengetahuan umum penelitian
+3. Untuk sapaan simple seperti "halo" atau "nama saya X", respon singkat dan ramah saja
+
+CONTOH RESPONS BAIK:
+- "Halo! Senang bertemu Anda, saya ResearchMate AI. Ada yang bisa saya bantu tentang dokumen ini?"
+- "Penulis artikel ini adalah Mariusz Kruk dari University of Zielona Gora, Poland."
+
+HINDARI: Pengulangan informasi, penjelasan panjang untuk pertanyaan simple."""
+            }
+        ]
+        
+        # Add conversation history
+        if conversation_history:
+            for msg in conversation_history[-8:]:  # Limit to last 8 messages
+                messages.append({
+                    "role": msg.get("role", "user"),
+                    "content": msg.get("content", "")
+                })
+        
+        # Add current question with context
+        current_prompt = f"""Konteks: {context[:3000]}
+
+Pertanyaan: {question}
+
+Jawab RINGKAS dan LANGSUNG. Jangan ulangi informasi yang sudah disebutkan sebelumnya."""
+
+        messages.append({"role": "user", "content": current_prompt})
 
         response = await self.groq_client.chat.completions.create(
-            model="llama-3.1-8b-instant",  # Updated to current available model
-            messages=[
-                {"role": "system", "content": "Anda adalah asisten yang membantu menjawab pertanyaan berdasarkan konteks yang diberikan. Selalu jawab dalam bahasa Indonesia."},
-                {"role": "user", "content": prompt}
-            ],
-            max_tokens=300,
-            temperature=0.1
+            model="llama-3.1-8b-instant",
+            messages=messages,
+            max_tokens=150,  # Reduced to make responses more concise
+            temperature=0.1  # Lower temperature for more focused responses
         )
 
         answer = response.choices[0].message.content.strip()

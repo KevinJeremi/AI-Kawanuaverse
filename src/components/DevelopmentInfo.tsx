@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Info, ExternalLink, Code, Server, Brain, Sparkles } from "lucide-react"
+import { ExternalLink, Code, Brain, Sparkles } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -89,13 +89,13 @@ export function DevelopmentInfo() {
                     </div>
 
                     <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-700">
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                        <a href="https://github.com/KevinJeremi/AI-Kawanuaverse" target="_blank" rel="noopener noreferrer">
                             <Button variant="outline" size="sm" className="text-xs hover:bg-blue-900/20">
                                 <ExternalLink className="w-3 h-3 mr-1" />
                                 Source Code
                             </Button>
                         </a>
-                        <a href="#" target="_blank" rel="noopener noreferrer">
+                        <a href="http://localhost:8000/docs" target="_blank" rel="noopener noreferrer">
                             <Button variant="outline" size="sm" className="text-xs hover:bg-purple-900/20">
                                 <ExternalLink className="w-3 h-3 mr-1" />
                                 API Docs
