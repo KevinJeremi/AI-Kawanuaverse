@@ -83,6 +83,28 @@ class PDFProcessor:
         text = re.sub(r' {2,}', ' ', text)
         text = re.sub(r'\t+', ' ', text)
         
+        # Remove common academic paper headers/footers and metadata
+        # These patterns appear frequently in journal PDFs
+        metadata_patterns = [
+            r'(?i)^corresponding author[^\n]*$',
+            r'(?i)^author name[^\n]*$',
+            r'(?i)^copyright.*?\d{4}[^\n]*$',
+            r'(?i)^©.*?\d{4}[^\n]*$',
+            r'(?i)^all rights reserved[^\n]*$',
+            r'(?i)^published by[^\n]*$',
+            r'(?i)^issn[:\s]*[\d-]+[^\n]*$',
+            r'(?i)^doi[:\s]*[^\n]*$',
+            r'(?i)^e-?mail[:\s]*[^\n]*$',
+            r'(?i)^received[:\s]*[^\n]*$',
+            r'(?i)^accepted[:\s]*[^\n]*$',
+            r'(?i)^revised[:\s]*[^\n]*$',
+            r'(?i)^available online[^\n]*$',
+            r'(?i)^this is an open access[^\n]*$',
+        ]
+        
+        for pattern in metadata_patterns:
+            text = re.sub(pattern, '', text, flags=re.MULTILINE)
+        
         # Remove page numbers and headers/footers (basic patterns)
         lines = text.split('\n')
         cleaned_lines = []
@@ -102,7 +124,26 @@ class PDFProcessor:
             if len(re.sub(r'[^a-zA-Z0-9\s]', '', line)) < len(line) * 0.5:
                 continue
             
-            cleaned_lines.append(line)
+            # Skip lines that look like email addresses or URLs
+            if re.search(r'@|http://|https://|www\.', line) and len(line) < 100:
+                continue
+            
+            # Skip common header/footer indicators
+            skip_patterns = [
+                r'(?i)^page \d+ of \d+',
+                r'(?i)^\d+\s*\|\s*page',
+                r'(?i)^vol\.?\s*\d+',
+                r'(?i)^pp\.?\s*\d+-\d+',
+            ]
+            
+            should_skip = False
+            for pattern in skip_patterns:
+                if re.match(pattern, line):
+                    should_skip = True
+                    break
+            
+            if not should_skip:
+                cleaned_lines.append(line)
         
         # Rejoin text
         cleaned_text = '\n'.join(cleaned_lines)
